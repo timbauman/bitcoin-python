@@ -99,11 +99,12 @@ class AuthServiceProxy(object):
                      'code' : -342, 'message' : 'missing HTTP response from server'})
 
          resp = httpresp.read()
+         print resp
          resp = resp.decode('utf8')
          resp = json.loads(resp, parse_float=decimal.Decimal)
-         if 'error' in resp:
-             if resp['error'] != None:
-                 raise JSONRPCException(resp['error'])
+         print resp
+         if 'error' in resp and resp['error'] != None:
+             raise JSONRPCException(resp['error'])
          elif 'result' not in resp:
              raise JSONRPCException({
                      'code' : -343, 'message' : 'missing JSON-RPC result'})
